@@ -1,43 +1,240 @@
-## High lelve steps for project
+## Project Plan
 
-Part 1: Plan
+This plan is organized into 5 parts. Part 1 is planning and approval. Parts 2-5 are implementation phases.
 
-Enrich this document to plan out each of these parts in detail, with substeps listed out as a checklist to be checked off by the agent, and with tests and success critieria for each. Ensure the user checks and approves the plan.
+## Part 1: Planning and Approval
 
-Part 2: Scaffolding
+### Checklist
 
-Set up the Docker infrastructure including docker ignore, backend code lives in `backend/`, frontend code in `frontend/` with default home page. Allow the frontend to reload whenever any file is changed. Comprehensive unit test, integration tests and e2e test. Test and make sure both backend and frontend able to start without issue.
+- [x] Convert high-level requirements into detailed, actionable steps.
+- [x] Define test scope (unit, integration, e2e) for each implementation part.
+- [x] Define success criteria for each implementation part.
+- [ ] User reviews and approves this plan before any implementation starts.
 
-Part 3: Login page
+### Success Criteria
 
-- Use JWT-based for authenticateion for the frontend/backend flow
-- Add login button on top right corner, when user click login button the login page will be shown to allow user login, after login success user navigate to /admin, you also can log out.
-- User credentials are stored securely in the database. Use alembic for database migration.
-- System contains 2 roles: user and admin.
-- Add 2 defaults users: admin/password for admin role and user/password for user role.
-- User also able to go to home page from admin page, and from home page user can navigate to admin page.
-- Home Page: Initial landing page with Food Tracker overview and navigation to admin panel (for authorized users).
-- Build admin dashboard using the TailAdmin React template
-- Add a toggle humberger icon to show and hide the left menu in Admin page
-- Comprehensive tests.
+- Plan covers all requested requirements from Parts 2-5.
+- Each part contains substeps that are specific enough to execute directly.
+- Each part includes concrete verification tests.
+- User explicitly approves the plan.
 
-Part 4: Food Tracker
+## Part 2: Scaffolding
 
-- User can access it via Food Tracker menu in admin page
-- The page shows all previously entered food items.
-- New food items can be added with a name and an expiration date.
-- Duplicate items are not allowed.
-- Add pagination and search filters early
-- An email is sent to the configured addresses once an item is within a week of (or past) its expiration date. Using Resend for email sending. APScheduler runs daily to check expiration dates.
-- Edit and Delete also support, use custom popup for delete confirmation
-- Update database migration
-- Comprehensive tests.
+### Objectives
 
+- Set up backend and frontend foundations.
+- Set up Docker-based local orchestration.
+- Ensure fast frontend development loop with reload on file changes.
+- Establish comprehensive testing baseline.
 
-Part 5: User Management
+### Checklist
 
-- Implement user management that allow user to manage users with some infomation such as Full Name, Email, Sex, Birthday.
-- Add pagination and search filters early (page, page_size, role, active)
-- Only admin role can see User Managerment menu.
-- Update database migration
-- Comprehensive tests.
+- [ ] Create backend project structure in backend/ using FastAPI, SQLAlchemy async, Alembic, APScheduler, uv.
+- [ ] Create frontend project structure in frontend/ using React + Vite + TypeScript + Tailwind.
+- [ ] Implement default homepage shell with claymorphism styling direction.
+- [ ] Add Docker setup for db, backend, frontend in docker-compose.yml.
+- [ ] Add .dockerignore files where needed to optimize build context.
+- [ ] Configure frontend dev server for file-watch reload in containerized development.
+- [ ] Configure backend environment settings and database connection.
+- [ ] Add initial test setup:
+	- [ ] Backend unit/integration test scaffolding.
+	- [ ] Frontend unit/component test scaffolding.
+	- [ ] E2E test scaffolding.
+- [ ] Verify all services boot cleanly with docker compose up --build.
+
+### Tests
+
+- Unit tests:
+	- Backend sanity test for health endpoint.
+	- Frontend render test for default homepage.
+- Integration tests:
+	- Backend can connect to PostgreSQL and execute simple DB operation.
+- E2E tests:
+	- Home page loads and displays key title/CTA.
+- Runtime checks:
+	- Containers start without crash loops.
+	- Frontend reloads on source file change.
+
+### Success Criteria
+
+- docker compose up --build starts db/backend/frontend successfully.
+- Homepage is reachable from browser.
+- Test commands for unit/integration/e2e run and pass.
+- Project structure clearly separates backend and frontend responsibilities.
+
+## Part 3: Login and Admin Entry
+
+### Objectives
+
+- Implement JWT-based authentication end-to-end.
+- Add role-aware navigation and protected admin access.
+- Introduce admin dashboard shell using TailAdmin template.
+
+### Checklist
+
+- [ ] Design auth model and user table schema (username/email, hashed password, role, status fields as needed).
+- [ ] Create Alembic migration for auth/user tables.
+- [ ] Implement secure password hashing and verification.
+- [ ] Implement login API endpoint returning JWT tokens.
+- [ ] Implement backend auth middleware/dependency for protected routes.
+- [ ] Seed default users:
+	- [ ] admin/password (admin role)
+	- [ ] user/password (user role)
+- [ ] Add login button at top-right on home page.
+- [ ] Build login page and submit flow.
+- [ ] On successful login, navigate to /admin.
+- [ ] Add logout capability to clear auth state and redirect appropriately.
+- [ ] Allow navigation home <-> admin with route guards.
+- [ ] Integrate TailAdmin React template for admin layout.
+- [ ] Add left-menu hamburger toggle behavior.
+
+### Tests
+
+- Unit tests:
+	- Password hash/verify behavior.
+	- JWT encode/decode and expiration validation.
+- Integration tests:
+	- Login API accepts valid credentials and rejects invalid ones.
+	- Protected endpoint access control for unauthenticated and authenticated users.
+	- Role checks for admin-only resources.
+- Frontend tests:
+	- Login form validation and submit behavior.
+	- Redirect to /admin after successful login.
+	- Logout returns user to allowed public page.
+	- Menu toggle updates layout state.
+- E2E tests:
+	- End-to-end login as admin and as user.
+	- Unauthorized user cannot access protected admin-only paths.
+
+### Success Criteria
+
+- JWT authentication works from UI through backend.
+- User credentials are stored securely (hashed, never plain text).
+- Default users are created and usable.
+- Admin layout and navigation are functional and test-covered.
+
+## Part 4: Food Tracker
+
+### Objectives
+
+- Implement CRUD for food items with duplicate prevention.
+- Add search and pagination from the first release.
+- Send daily expiration alerts through Resend.
+
+### Checklist
+
+- [ ] Define food item schema and uniqueness constraints (name and scope rules).
+- [ ] Create Alembic migration for food tracking tables.
+- [ ] Implement backend APIs:
+	- [ ] List with pagination and search filters.
+	- [ ] Create item (name, expiration date) with duplicate checks.
+	- [ ] Update item.
+	- [ ] Delete item.
+- [ ] Build Food Tracker admin page with table/list rendering.
+- [ ] Add search/filter controls and pagination UI.
+- [ ] Add create/edit forms with validation.
+- [ ] Add custom confirmation popup for delete action.
+- [ ] Integrate Resend email service configuration.
+- [ ] Implement APScheduler daily job for expiry checks.
+- [ ] Implement notification logic for:
+	- [ ] within 7 days to expiration
+	- [ ] already expired
+
+### Tests
+
+- Unit tests:
+	- Duplicate detection rules.
+	- Expiration window calculation logic.
+	- Email payload formatting logic.
+- Integration tests:
+	- CRUD API behavior with DB persistence.
+	- Search and pagination query behavior.
+	- Scheduler job function execution (with mocked email service).
+- Frontend tests:
+	- Food list rendering and pagination controls.
+	- Create/edit/delete flows.
+	- Delete confirmation popup behavior.
+	- Search filter behavior.
+- E2E tests:
+	- Admin creates, edits, filters, and deletes food items.
+	- Duplicate create attempt is blocked with visible feedback.
+
+### Success Criteria
+
+- Food Tracker page supports full CRUD.
+- Duplicates are prevented by backend validation and DB constraints.
+- Search and pagination work correctly.
+- Daily scheduler triggers expiry checks and sends expected emails.
+
+## Part 5: User Management
+
+### Objectives
+
+- Provide admin-only user management.
+- Support user profile fields and management filters.
+
+### Checklist
+
+- [ ] Extend user schema with full name, email, sex, birthday, active status.
+- [ ] Create/update Alembic migration for user management fields.
+- [ ] Implement backend APIs for user management:
+	- [ ] List users with filters: page, page_size, role, active.
+	- [ ] Create user.
+	- [ ] Update user.
+	- [ ] Activate/deactivate user as needed.
+- [ ] Add User Management menu item visible only to admin role.
+- [ ] Build User Management page with table, filters, and pagination.
+- [ ] Add forms for creating and editing user data.
+- [ ] Enforce role-based authorization on all user-management endpoints.
+
+### Tests
+
+- Unit tests:
+	- User field validation.
+	- Role-based access helper logic.
+- Integration tests:
+	- User management API CRUD/update behavior.
+	- Pagination and role/active filters.
+	- Authorization checks for admin vs non-admin accounts.
+- Frontend tests:
+	- Admin sees User Management menu; non-admin does not.
+	- User list/filter/pagination behavior.
+	- Create/edit form validation and submit behavior.
+- E2E tests:
+	- Admin can manage users through UI.
+	- Non-admin cannot access User Management routes.
+
+### Success Criteria
+
+- User management features are available only to admin users.
+- User profile fields are persisted and editable.
+- Filtering and pagination behave correctly.
+- Test coverage includes permission boundaries and CRUD workflows.
+
+## Global Quality Gates
+
+### Coverage and Reliability
+
+- [ ] Combined test suite demonstrates at least 80% coverage.
+- [ ] No critical runtime errors in backend/frontend startup logs.
+- [ ] Migrations run cleanly from empty database state.
+
+### Security and Data Integrity
+
+- [ ] Passwords hashed securely.
+- [ ] JWT auth enforced on protected APIs.
+- [ ] Duplicate food item prevention validated at API and DB layers.
+
+### Developer Experience
+
+- [ ] Local development uses docker compose reliably.
+- [ ] Frontend hot reload works in containerized workflow.
+
+## Approval
+
+Plan status: Pending user approval.
+
+Approval checklist:
+
+- [ ] User approves this Part 1 plan.
+- [ ] Agent proceeds to Part 2 implementation.
