@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+:root {
+  font-family: "Baloo 2", "Trebuchet MS", "Segoe UI", sans-serif;
+  color: #11283b;
+  background: radial-gradient(circle at 10% 10%, #eaf7ff 0%, #dbe7ff 38%, #ffeacc 100%);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: #11283b;
+}
+
+.clay-card {
+  background: #f5f0ff;
+  box-shadow:
+    0 24px 40px rgba(52, 76, 94, 0.18),
+    inset 0 -8px 16px rgba(52, 76, 94, 0.15),
+    inset 0 8px 16px rgba(255, 255, 255, 0.55);
+}
+
+.clay-button {
+  color: #17364a;
+  background: #ffe3cc;
+  text-decoration: none;
+  box-shadow:
+    0 18px 28px rgba(44, 70, 88, 0.2),
+    inset 0 -8px 14px rgba(44, 70, 88, 0.18),
+    inset 0 8px 14px rgba(255, 255, 255, 0.62);
+}
+
+.clay-button:hover {
+  box-shadow:
+    0 20px 30px rgba(44, 70, 88, 0.24),
+    inset 0 -10px 16px rgba(44, 70, 88, 0.2),
+    inset 0 10px 16px rgba(255, 255, 255, 0.66);
+}
+
+.clay-button:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 14px 22px rgba(44, 70, 88, 0.22),
+    inset 0 -12px 18px rgba(44, 70, 88, 0.22),
+    inset 0 12px 18px rgba(255, 255, 255, 0.66);
+}

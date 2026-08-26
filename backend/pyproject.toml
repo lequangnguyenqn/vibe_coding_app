@@ -1,0 +1,34 @@
+[project]
+name = "food-expiry-backend"
+version = "0.1.0"
+description = "Backend for Food Expiry Tracker"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.116.0",
+  "uvicorn[standard]>=0.35.0",
+  "sqlalchemy[asyncio]>=2.0.39",
+  "asyncpg>=0.30.0",
+  "alembic>=1.16.4",
+  "apscheduler>=3.11.0",
+  "pydantic-settings>=2.10.1"
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.4.1",
+  "pytest-asyncio>=1.1.0",
+  "httpx>=0.28.1",
+  "ruff>=0.12.8"
+]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-q"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
