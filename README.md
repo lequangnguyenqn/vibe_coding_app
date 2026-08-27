@@ -1,6 +1,9 @@
 # Food Expiry Tracker
 
 Food Expiry Tracker is a full-stack app for tracking food expiration dates, sending daily expiry alerts, and managing users with role-based access.
+![Home page](assets/home_page.png)
+
+![Admin page](assets/admin_page.png)
 
 ## Tech Stack
 
