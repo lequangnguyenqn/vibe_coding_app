@@ -1,0 +1,130 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0 -- /app/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.14.2, asyncio-1.4.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 2 items
+
+tests/integration/test_auth_api.py::test_login_and_admin_authorization_flow PASSED [ 50%]
+tests/integration/test_auth_api.py::test_non_admin_forbidden_on_admin_route FAILED [100%]
+
+=================================== FAILURES ===================================
+___________________ test_non_admin_forbidden_on_admin_route ____________________
+
+    @pytest.mark.asyncio
+    async def test_non_admin_forbidden_on_admin_route() -> None:
+>       await seed_default_users()
+
+tests/integration/test_auth_api.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+app/services/bootstrap.py:35: in seed_default_users
+    await _ensure_user(session, user["username"], user["password"], user["role"])
+app/services/bootstrap.py:17: in _ensure_user
+    existing = await session.scalar(select(User).where(User.username == username))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py:504: in scalar
+    return await greenlet_spawn(
+.venv/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:201: in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2421: in scalar
+    return self._execute_internal(
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2261: in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2113: in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:2: in _connection_for_bind
+    ???
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:1191: in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:3295: in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:144: in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:3319: in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:448: in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:1371: in _checkout
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:1309: in _checkout
+    result = pool._dialect._do_ping_w_event(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py:729: in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:1164: in do_ping
+    dbapi_connection.ping()
+.venv/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:818: in ping
+    self._handle_exception(error)
+.venv/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:799: in _handle_exception
+    raise error
+.venv/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:816: in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:825: in _async_ping
+    await tr.start()
+.venv/lib/python3.12/site-packages/asyncpg/transaction.py:146: in start
+    await self._connection.execute(query)
+.venv/lib/python3.12/site-packages/asyncpg/connection.py:354: in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   RuntimeError: Task <Task pending name='Task-8' coro=<test_non_admin_forbidden_on_admin_route() running at /app/tests/integration/test_auth_api.py:30> cb=[_run_until_complete_cb() at /usr/local/lib/python3.12/asyncio/base_events.py:181]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+
+asyncpg/protocol/protocol.pyx:369: RuntimeError
+------------------------------ Captured log call -------------------------------
+ERROR    sqlalchemy.pool.impl.AsyncAdaptedQueuePool:base.py:377 Exception terminating connection <AdaptedConnection <asyncpg.connection.Connection object at 0x7ae79cb82b70>>
+Traceback (most recent call last):
+  File "/app/.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 373, in _close_connection
+    self._dialect.do_terminate(connection)
+  File "/app/.venv/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 1131, in do_terminate
+    dbapi_connection.terminate()
+  File "/app/.venv/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 402, in terminate
+    self.await_(asyncio.shield(self._terminate_graceful_close()))  # type: ignore[attr-defined] # noqa: E501
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.12/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 912, in _terminate_graceful_close
+    await self._connection.close(timeout=2)
+  File "/app/.venv/lib/python3.12/site-packages/asyncpg/connection.py", line 1513, in close
+    await self._protocol.close(timeout)
+  File "asyncpg/protocol/protocol.pyx", line 617, in close
+  File "asyncpg/protocol/protocol.pyx", line 650, in asyncpg.protocol.protocol.BaseProtocol._request_cancel
+  File "/app/.venv/lib/python3.12/site-packages/asyncpg/connection.py", line 1682, in _cancel_current_command
+    self._cancellations.add(self._loop.create_task(self._cancel(waiter)))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/asyncio/base_events.py", line 455, in create_task
+    self._check_closed()
+  File "/usr/local/lib/python3.12/asyncio/base_events.py", line 545, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+========================= 1 failed, 1 passed in 5.24s ==========================
+sys:1: RuntimeWarning: coroutine 'Connection._cancel' was never awaited
+

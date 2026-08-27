@@ -72,21 +72,21 @@ This plan is organized into 5 parts. Part 1 is planning and approval. Parts 2-5 
 
 ### Checklist
 
-- [ ] Design auth model and user table schema (username/email, hashed password, role, status fields as needed).
-- [ ] Create Alembic migration for auth/user tables.
-- [ ] Implement secure password hashing and verification.
-- [ ] Implement login API endpoint returning JWT tokens.
-- [ ] Implement backend auth middleware/dependency for protected routes.
-- [ ] Seed default users:
-	- [ ] admin/password (admin role)
-	- [ ] user/password (user role)
-- [ ] Add login button at top-right on home page.
-- [ ] Build login page and submit flow.
-- [ ] On successful login, navigate to /admin.
-- [ ] Add logout capability to clear auth state and redirect appropriately.
-- [ ] Allow navigation home <-> admin with route guards.
-- [ ] Integrate TailAdmin React template for admin layout.
-- [ ] Add left-menu hamburger toggle behavior.
+- [x] Design auth model and user table schema (username/email, hashed password, role, status fields as needed).
+- [x] Create Alembic migration for auth/user tables.
+- [x] Implement secure password hashing and verification.
+- [x] Implement login API endpoint returning JWT tokens.
+- [x] Implement backend auth middleware/dependency for protected routes.
+- [x] Seed default users:
+	- [x] admin/password (admin role)
+	- [x] user/password (user role)
+- [x] Add login button at top-right on home page.
+- [x] Build login page and submit flow.
+- [x] On successful login, navigate to /admin.
+- [x] Add logout capability to clear auth state and redirect appropriately.
+- [x] Allow navigation home <-> admin with route guards.
+- [x] Integrate TailAdmin React template for admin layout.
+- [x] Add left-menu hamburger toggle behavior.
 
 ### Tests
 
@@ -123,22 +123,22 @@ This plan is organized into 5 parts. Part 1 is planning and approval. Parts 2-5 
 
 ### Checklist
 
-- [ ] Define food item schema and uniqueness constraints (name and scope rules).
-- [ ] Create Alembic migration for food tracking tables.
-- [ ] Implement backend APIs:
-	- [ ] List with pagination and search filters.
-	- [ ] Create item (name, expiration date) with duplicate checks.
-	- [ ] Update item.
-	- [ ] Delete item.
-- [ ] Build Food Tracker admin page with table/list rendering.
-- [ ] Add search/filter controls and pagination UI.
-- [ ] Add create/edit forms with validation.
-- [ ] Add custom confirmation popup for delete action.
-- [ ] Integrate Resend email service configuration.
-- [ ] Implement APScheduler daily job for expiry checks.
-- [ ] Implement notification logic for:
-	- [ ] within 7 days to expiration
-	- [ ] already expired
+- [x] Define food item schema and uniqueness constraints (name and scope rules).
+- [x] Create Alembic migration for food tracking tables.
+- [x] Implement backend APIs:
+	- [x] List with pagination and search filters.
+	- [x] Create item (name, expiration date) with duplicate checks.
+	- [x] Update item.
+	- [x] Delete item.
+- [x] Build Food Tracker admin page with table/list rendering.
+- [x] Add search/filter controls and pagination UI.
+- [x] Add create/edit forms with validation.
+- [x] Add custom confirmation popup for delete action.
+- [x] Integrate Resend email service configuration.
+- [x] Implement APScheduler daily job for expiry checks.
+- [x] Implement notification logic for:
+	- [x] within 7 days to expiration
+	- [x] already expired
 
 ### Tests
 
@@ -232,7 +232,7 @@ This plan is organized into 5 parts. Part 1 is planning and approval. Parts 2-5 
 
 ## Approval
 
-Plan status: Part 1 approved. Part 2 completed.
+Plan status: Part 1 approved. Part 2 completed. Part 3 completed. Part 4 completed.
 
 Approval checklist:
 
