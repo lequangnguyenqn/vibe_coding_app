@@ -19,7 +19,15 @@ services:
     build:
       context: ./backend
     environment:
-      DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/food_tracker
+      APP_NAME: ${APP_NAME:-Food Expiry Tracker API}
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://postgres:postgres@db:5432/food_tracker}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-change-me-in-production-with-at-least-32-bytes}
+      JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
+      JWT_ACCESS_TOKEN_EXPIRE_MINUTES: ${JWT_ACCESS_TOKEN_EXPIRE_MINUTES:-60}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-Food Expiry Tracker <onboarding@resend.dev>}
+      RESEND_TO_EMAILS: ${RESEND_TO_EMAILS:-}
+      EXPIRY_ALERT_DAYS: ${EXPIRY_ALERT_DAYS:-7}
     command: sh -c "uv run alembic upgrade head && uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
     ports:
       - "8000:8000"
@@ -33,6 +41,7 @@ services:
     environment:
       CHOKIDAR_USEPOLLING: "true"
       WATCHPACK_POLLING: "true"
+      VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8000/api}
     command: npm run dev -- --host 0.0.0.0 --port 5173
     volumes:
       - ./frontend:/app

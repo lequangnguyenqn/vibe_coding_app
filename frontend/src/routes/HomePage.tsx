@@ -1,16 +1,30 @@
 import { ClayButton } from "../components/ui/ClayButton";
 import { ClayCard } from "../components/ui/ClayCard";
+import { useAuth } from "../auth/AuthContext";
 
 export function HomePage() {
+  const auth = useAuth();
+
   return (
     <main className="min-h-screen px-6 py-10 md:px-12">
       <header className="mx-auto mb-8 flex w-full max-w-6xl items-center justify-between">
         <div className="rounded-[22px] bg-[#fff9e9] px-4 py-2 text-sm font-semibold text-[#2f3d46] shadow-[0_12px_20px_rgba(56,84,98,0.18),inset_0_-6px_12px_rgba(56,84,98,0.15),inset_0_6px_12px_rgba(255,255,255,0.65)]">
           Food Expiry Tracker
         </div>
-        <ClayButton href="/login" aria-label="Open login page">
-          Login
-        </ClayButton>
+        {auth.isAuthenticated ? (
+          <button
+            type="button"
+            className="clay-button inline-flex items-center justify-center rounded-[26px] px-6 py-3 text-base font-semibold transition-transform duration-150 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0b4f67]/35"
+            aria-label="Logout"
+            onClick={auth.logout}
+          >
+            Logout
+          </button>
+        ) : (
+          <ClayButton href="/login" aria-label="Open login page">
+            Login
+          </ClayButton>
+        )}
       </header>
 
       <section className="mx-auto grid w-full max-w-6xl gap-6 lg:grid-cols-[1.2fr_0.8fr]">

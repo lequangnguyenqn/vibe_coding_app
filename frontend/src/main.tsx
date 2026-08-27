@@ -9,7 +9,8 @@ import { AdminPage } from "./routes/AdminPage";
 import { FoodTrackerPage } from "./routes/FoodTrackerPage";
 import { HomePage } from "./routes/HomePage";
 import { LoginPage } from "./routes/LoginPage";
-import { RequireAdmin } from "./routes/RequireAuth";
+import { RequireAdmin, RequireAuth } from "./routes/RequireAuth";
+import { UserManagementPage } from "./routes/UserManagementPage";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    element: <RequireAdmin />,
+    element: <RequireAuth />,
     children: [
       {
         path: "/admin",
@@ -34,6 +35,15 @@ const router = createBrowserRouter([
           {
             path: "food-tracker",
             element: <FoodTrackerPage />
+          },
+          {
+            element: <RequireAdmin />,
+            children: [
+              {
+                path: "users",
+                element: <UserManagementPage />
+              }
+            ]
           }
         ]
       }

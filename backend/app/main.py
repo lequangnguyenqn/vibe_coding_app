@@ -8,6 +8,7 @@ from app.api.routes.admin import router as admin_router
 from app.api.routes.auth import router as auth_router
 from app.api.routes.food_items import router as food_items_router
 from app.api.routes.health import router as health_router
+from app.api.routes.user_management import router as user_management_router
 from app.core.config import settings
 from app.db.session import AsyncSessionLocal
 from app.services.food_notifications import send_daily_expiry_alerts
@@ -44,3 +45,4 @@ app.include_router(health_router, prefix="/api")
 app.include_router(auth_router, prefix="/api")
 app.include_router(admin_router, prefix="/api")
 app.include_router(food_items_router, prefix="/api")
+app.include_router(user_management_router, prefix="/api")

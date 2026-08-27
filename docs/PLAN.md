@@ -175,17 +175,17 @@ This plan is organized into 5 parts. Part 1 is planning and approval. Parts 2-5 
 
 ### Checklist
 
-- [ ] Extend user schema with full name, email, sex, birthday, active status.
-- [ ] Create/update Alembic migration for user management fields.
-- [ ] Implement backend APIs for user management:
-	- [ ] List users with filters: page, page_size, role, active.
-	- [ ] Create user.
-	- [ ] Update user.
-	- [ ] Activate/deactivate user as needed.
-- [ ] Add User Management menu item visible only to admin role.
-- [ ] Build User Management page with table, filters, and pagination.
-- [ ] Add forms for creating and editing user data.
-- [ ] Enforce role-based authorization on all user-management endpoints.
+- [x] Extend user schema with full name, email, sex, birthday, active status.
+- [x] Create/update Alembic migration for user management fields.
+- [x] Implement backend APIs for user management:
+	- [x] List users with filters: page, page_size, role, active.
+	- [x] Create user.
+	- [x] Update user.
+	- [x] Activate/deactivate user as needed.
+- [x] Add User Management menu item visible only to admin role.
+- [x] Build User Management page with table, filters, and pagination.
+- [x] Add forms for creating and editing user data.
+- [x] Enforce role-based authorization on all user-management endpoints.
 
 ### Tests
 
@@ -232,7 +232,7 @@ This plan is organized into 5 parts. Part 1 is planning and approval. Parts 2-5 
 
 ## Approval
 
-Plan status: Part 1 approved. Part 2 completed. Part 3 completed. Part 4 completed.
+Plan status: Part 1 approved. Part 2 completed. Part 3 completed. Part 4 completed. Part 5 completed.
 
 Approval checklist:
 

@@ -43,6 +43,16 @@ export function AdminLayout() {
             >
               Food Tracker
             </NavLink>
+            {auth.user?.role === "admin" ? (
+              <NavLink
+                to="/admin/users"
+                className={({ isActive }) =>
+                  `${navLinkBase} ${isActive ? "bg-[#4b70e2] text-white" : "text-[#364152] hover:bg-[#eff4ff]"}`
+                }
+              >
+                User Management
+              </NavLink>
+            ) : null}
           </nav>
         </aside>
 
@@ -60,7 +70,9 @@ export function AdminLayout() {
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="hidden text-sm font-semibold text-[#526070] md:block">{auth.user?.username}</span>
+              <Link className="rounded-xl bg-[#4b70e2] px-4 py-2 font-semibold text-white" to="/">
+                Go to Home
+              </Link>
               <button className="rounded-xl bg-[#0f766e] px-4 py-2 font-semibold text-white" onClick={onLogout}>
                 Logout
               </button>
@@ -69,14 +81,6 @@ export function AdminLayout() {
 
           <div className="p-4 md:p-6">
             <Outlet />
-            <div className="mt-6 flex gap-4">
-              <Link className="rounded-xl bg-[#4b70e2] px-4 py-3 font-semibold text-white" to="/">
-                Go to Home
-              </Link>
-              <Link className="rounded-xl border border-[#ccd8e5] bg-white px-4 py-3 font-semibold" to="/login">
-                Open Login
-              </Link>
-            </div>
           </div>
         </section>
       </div>
